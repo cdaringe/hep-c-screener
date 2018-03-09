@@ -1,5 +1,9 @@
 # contributing
 
+- clone
+- cd /path/to/project
+- run `yarn` to install
+
 ## testing
 
 ### unit

@@ -19,8 +19,10 @@
     {
       "type": "node",
       "request": "launch",
-      "name": "Launch Program",
-      "program": "${workspaceFolder}/src/index.js"
+      "name": "server",
+      "program": "${workspaceFolder}/src/bin.js",
+      "args": [
+      ]
     }
   ]
 }

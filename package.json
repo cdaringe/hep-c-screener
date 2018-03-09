@@ -12,6 +12,7 @@
     "precommit": "run-p test format:staged"
   },
   "dependencies": {
+    "fhir.js": "^0.0.20",
     "fs-extra": "^5.0.0",
     "invariant": "^2.2.2",
     "koa": "^2.4.1",
