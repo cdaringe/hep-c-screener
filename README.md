@@ -1,8 +1,20 @@
-# HEPATITIS-C-SCREENING-IN-BABY-BOOMERS
+# hep-c-screenr
 
-HEPATITIS C SCREENING IN BABY BOOMERS–TIME TO BRING THE FHIR?
+a CDS hook hepatitis c screening service
 
-## team
+rad! 💯
 
-- **name**: pdxsters
-- **members**: cdieringer3, kstrong7, eashtian3
+## usage
+
+- `yarn`
+- `yarn start`
+
+or `npm`.  whatever floats your boat.
+
+### configuration
+
+- `PORT` - defaults to 8080
+
+## contributing
+
+see [CONTRIBUTING.md](./CONTRIBUTING.md)
