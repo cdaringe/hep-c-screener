@@ -6,6 +6,8 @@ var initServices = require('./services')
 var fs = require('fs-extra')
 var path = require('path')
 var cors = require('koa-cors')
+var fhir = require('fhir.js')
+var fhirUtil = require('./fhir-util/')
 
 var HOOK_FILENAME = path.join(__dirname, './hook.json')
 var MIDDLEWARE = ['response-time', 'logger', 'body-parser', 'simple-responses']
@@ -48,17 +50,21 @@ module.exports = class Service {
     var dummyPostRouteName = `/cds-services/${hook.id}`
     app.use(
       post(dummyPostRouteName, async (ctx, id) => {
-        return {
-          cards: [
-            {
-              summary: 'Ronald Reagan sucks.',
-              detail: 'no, seriously, he really, really sucks',
-              indicator: 'warning',
-              source: {
-                label: 'meh, cant do nothin about it!'
-              }
+        var cards = []
+        var patient = ctx.request.body.prefetch.patient.resource
+        if (fhirUtil.patient.isBabyBoomer(patient)) {
+          // has done screening?
+          cards.push({
+            summary: 'You are a baby boomer!',
+            detail: 'So... get checked!',
+            indicator: 'warning',
+            source: {
+              label: 'Contact your nearest blood lab, pronto'
             }
-          ]
+          })
+        }
+        return {
+          cards
         }
       })
     )
