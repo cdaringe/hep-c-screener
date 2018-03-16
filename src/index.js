@@ -6,7 +6,7 @@ var initServices = require('./services')
 var fs = require('fs-extra')
 var path = require('path')
 var cors = require('koa-cors')
-var fhirUtil = require('./fhir-util/')
+var workflows = require('./hcv-workflows/')
 
 var HOOK_FILENAME = path.join(__dirname, './hook.json')
 var MIDDLEWARE = ['response-time', 'logger', 'body-parser', 'simple-responses']
@@ -49,12 +49,10 @@ module.exports = class Service {
     var dummyPostRouteName = `/cds-services/${hook.id}`
     app.use(
       post(dummyPostRouteName, async (ctx, id) => {
-        var cdsPayload = ctx.request.body
-        var patient = cdsPayload.prefetch.patient.resource
-        var client = fhirUtil.createClient(cdsPayload)
-        var isBoomer = fhirUtil.patient.isBabyBoomer(patient)
-        var hasHCV = await fhirUtil.patient.hasHCV({ client, patient })
-        if (isBoomer && !hasHCV) {
+        var requiresScreen = await workflows.screening.shouldScreen(
+          ctx.request.body
+        )
+        if (requiresScreen) {
           var cards = []
           // has done screening?
           cards.push({
