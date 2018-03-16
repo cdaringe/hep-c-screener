@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Build') {
             steps {
-                sh 'docker build -t hepcscreener .'
+                sh 'docker build -t apps2.hdap.gatech.edu/hepcscreener .'
             }
         }
         stage('Publish') {
