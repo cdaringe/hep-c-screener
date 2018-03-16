@@ -20,7 +20,7 @@
     "koa-cors": "^0.0.16",
     "koa-pino-logger": "^2.1.1",
     "koa-route": "^3.2.0",
-    "nodemon": "^1.15.0",
+    "lodash": "^4.17.5",
     "perish": "^1.0.1",
     "pino": "^4.10.4"
   },
@@ -37,7 +37,7 @@
     "freeport": "^1.0.5",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.0",
-    "lodash": "^4.17.5",
+    "nodemon": "^1.15.0",
     "npm-run": "^4.1.2",
     "npm-run-all": "^4.1.2",
     "prettier-standard": "^8.0.0"

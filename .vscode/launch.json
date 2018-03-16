@@ -21,7 +21,8 @@
       "request": "launch",
       "name": "server",
       "program": "${workspaceFolder}/src/bin.js",
-      "args": [
+      "skipFiles": [
+        "<node_internals>/**/*.js"
       ]
     }
   ]
