@@ -6,7 +6,7 @@
   "scripts": {
     "start:watch": "nodemon node src/bin.js",
     "start": "node src/bin.js",
-    "test": "NODE_ENV=test ava",
+    "test": "NODE_ENV=test ava --verbose",
     "format": "prettier-standard 'src/**/*.js'",
     "format:staged": "prettier-standard 'src/**/*.js'",
     "precommit": "run-p test format:staged"
@@ -31,7 +31,7 @@
   "author": "cdaringe",
   "homepage": "https://github.com/cdaringe/hep-c-screenr#readme",
   "devDependencies": {
-    "ava": "https://github.com/avajs/ava.git",
+    "ava": "^1.0.0-beta.3",
     "axios": "^0.17.1",
     "bluebird": "^3.5.1",
     "freeport": "^1.0.5",
