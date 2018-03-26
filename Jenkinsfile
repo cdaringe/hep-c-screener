@@ -1,14 +1,34 @@
-pipeline {
+#!/usr/bin/env groovy
+pipeline{
     agent any
-    stages {
-        stage('Build') {
-            steps {
-                sh 'docker build -t apps2.hdap.gatech.edu/hep-c-screener .'
+
+    //Define stages for the build process
+    stages{
+
+        //Define the deploy stage
+        stage('Deploy'){
+            steps{
+                //The Jenkins Declarative Pipeline does not provide functionality to deploy to a private
+                //Docker registry. In order to deploy to the HDAP Docker registry we must write a custom Groovy
+                //script using the Jenkins Scripting Pipeline. This is done by placing Groovy code with in a "script"
+                //element. The script below registers the HDAP Docker registry with the Docker instance used by
+                //the Jenkins Pipeline, builds a Docker image of the project, and pushes it to the registry.
+                script{
+                    docker.withRegistry('https://apps2.hdap.gatech.edu'){
+                        //Build and push the web application image
+                        def applicationImage = docker.build("hep-c-screener:latest","-f Dockerfile .")
+                        applicationImage.push('latest')
+                    }
+                }
             }
         }
-        stage('Publish') {
-            steps {
-                echo 'Publish to some docker swarm'
+
+        //Define stage to notify rancher
+        stage('Notify'){
+            steps{
+                script{
+                    rancher confirm: true, credentialId: 'rancher-server', endpoint: 'https://apps3.hdap.gatech.edu/v2-beta', environmentId: '1a16', environments: '', image: 'apps2.hdap.gatech.edu/hep-c-screener:latest', ports: '', service: 'PDXsters/hep-c-screener', timeout: 50
+                }
             }
         }
     }
