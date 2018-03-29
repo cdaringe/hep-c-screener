@@ -1,11 +1,9 @@
 #!/usr/bin/env groovy
 pipeline{
     agent any
-
-    //Define stages for the build process
-    stages{
-
-        //Define the deploy stage
+    // Define stages for the build process
+    stages {
+        // Define the deploy stage
         stage('Deploy'){
             steps{
                 //The Jenkins Declarative Pipeline does not provide functionality to deploy to a private
@@ -23,7 +21,7 @@ pipeline{
             }
         }
 
-        //Define stage to notify rancher
+        // Define stage to notify rancher
         stage('Notify'){
             steps{
                 script{
