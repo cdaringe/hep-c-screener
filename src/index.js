@@ -7,9 +7,14 @@ var fs = require('fs-extra')
 var path = require('path')
 var cors = require('koa-cors')
 var workflows = require('./hcv-workflows/')
+var keyBy = require('lodash/keyBy')
 
-var HOOK_FILENAME = path.join(__dirname, './hook.json')
+var HOOKS_FILENAME = path.join(__dirname, './hooks.json')
 var MIDDLEWARE = ['response-time', 'logger', 'body-parser', 'simple-responses']
+var CARD_SOURCE = {
+  label: 'hep-c-screenr',
+  url: 'https://example.com'
+}
 
 async function getDefaultServiceOpts () {
   return {
@@ -37,37 +42,75 @@ module.exports = class Service {
     var app = new Koa()
     app.use(cors())
     var services = await initServices(app, opts)
-    var hook = JSON.parse(await fs.readFile(HOOK_FILENAME))
+    var hooks = JSON.parse(await fs.readFile(HOOKS_FILENAME))
+    var hooksByHookName = keyBy(hooks, 'hook')
     MIDDLEWARE.forEach(mw => app.use(require(`./middleware/${mw}`)))
     app.use(
       get('/cds-services', async (ctx, id) => {
         return {
-          services: [hook]
+          services: hooks
         }
       })
     )
-    var dummyPostRouteName = `/cds-services/${hook.id}`
     app.use(
-      post(dummyPostRouteName, async (ctx, id) => {
-        var requiresScreen = await workflows.screening.shouldScreen(
-          ctx.request.body
-        )
-        if (requiresScreen) {
-          var cards = []
-          // has done screening?
-          cards.push({
-            summary: 'You are a baby boomer!',
-            detail: 'So... get checked!',
-            indicator: 'warning',
-            source: {
-              label: 'Contact your nearest blood lab, pronto'
-            }
-          })
+      post(
+        `/cds-services/${hooksByHookName['patient-view'].id}`,
+        async (ctx, id) => {
+          var requiresScreen = await workflows.screening.shouldScreen(
+            ctx.request.body
+          )
+          if (requiresScreen) {
+            var cards = []
+            // has done screening?
+            cards.push({
+              summary: 'You are a baby boomer!',
+              detail: 'So... get checked!',
+              indicator: 'warning',
+              source: CARD_SOURCE
+            })
+          }
+          return {
+            cards
+          }
         }
-        return {
-          cards
+      )
+    )
+    app.use(
+      post(
+        `/cds-services/${hooksByHookName['order-review'].id}`,
+        async (ctx, id) => {
+          var requiresScreen = await workflows.screening.shouldScreenOnOrder(
+            ctx.request.body
+          )
+          if (requiresScreen) {
+            var cards = []
+            // has done screening?
+            cards.push({
+              summary: 'Example Card',
+              indicator: 'info',
+              detail:
+                'Add an XYZ complimentary medication OR switch patient order to ABC. See SMART app for more details.',
+              source: CARD_SOURCE,
+              suggestions: [
+                {
+                  label: 'Cancel Hepatatis C Screening',
+                  uuid: '123',
+                  actions: [
+                    {
+                      type: 'delete',
+                      description: 'Cancel ABC',
+                      resource: 'MedicationRequest/ABC'
+                    }
+                  ]
+                }
+              ]
+            })
+          }
+          return {
+            cards
+          }
         }
-      })
+      )
     )
     this.server = app.listen(opts.server.port)
     services.logger.info(`🚀  listening @ http://localhost:${opts.server.port}`)
