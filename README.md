@@ -9,15 +9,14 @@ rad! 💯
 - `yarn`
 - `yarn start`
 
-or `npm`.  whatever floats your boat.
+or 
+
+- `npm install`
+- `npm start`
 
 ### configuration
 
 - `PORT` - defaults to 8080
-
-## tests
-
-- `npm test`
 
 ## contributing
 
