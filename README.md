@@ -15,6 +15,10 @@ or `npm`.  whatever floats your boat.
 
 - `PORT` - defaults to 8080
 
+## tests
+
+- `npm test`
+
 ## contributing
 
 see [CONTRIBUTING.md](./CONTRIBUTING.md)
