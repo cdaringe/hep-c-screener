@@ -56,12 +56,25 @@ module.exports = class Service {
           var cards = []
           // has done screening?
           cards.push({
-            summary: 'You are a baby boomer!',
-            detail: 'So... get checked!',
+            summary: 'HCV Screen Required',
+            detail: 'Patient needs HCV screen due to meeting criteria from the CDC',
             indicator: 'warning',
             source: {
-              label: 'Contact your nearest blood lab, pronto'
-            }
+              label: 'https://www.cdc.gov/hepatitis/hcv/guidelinesc.htm'
+            },
+            suggestions: [
+              {
+                label: 'Cancel HCV Screening',
+                uuid: '123',
+                actions: [
+                  {
+                    type: 'delete',
+                    description: 'Cancel ABC',
+                    resource: 'MedicationRequest/ABC'
+                  }
+                ]
+              }
+            ]
           })
         }
         return {
