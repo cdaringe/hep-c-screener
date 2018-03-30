@@ -2,17 +2,18 @@
 
 - clone
 - cd /path/to/project
-- run `yarn` to install
+- run `yarn` or `npm install` to install packages
+
 
 ## testing
 
 ### unit
 
-- `yarn test`
+- `yarn test` or `npm test`
 
 ### integration
 
-- run your server locally, via `yarn start:watch`
+- run your server locally, via `yarn start:watch` or `npm start`
 - find an IP accessible to the CDS hook sandbox
   - wire in `https://sb-fhir-stu3.smarthealthit.org/smartstu3/open` to the sandbox for querying patients w/ HCV histories
     - Anthony Z Coleman (smart-1869612): Baby boomer w/ chronic Hep C

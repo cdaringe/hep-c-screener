@@ -1,5 +1,5 @@
 var ava = require('ava').default
-var fhirUtil = require('../../src/fhir-util/')
+var hcvWorkflows = require('../../src/hcv-workflows')
 
 ava.before(t => {
 	t.context.babyBoomerPatient = {
@@ -22,25 +22,25 @@ ava.before(t => {
 });
 
 ava("Verify Patient is a babyboomer", t => {
-	t.truthy(fhirUtil.patient.isBabyBoomer(t.context.babyBoomerPatient))
+	t.truthy(hcvWorkflows.patient.isBabyBoomer(t.context.babyBoomerPatient))
 });
 
 ava("Verify Patient with empty birth date is not a babyboomer", t => {
-	t.falsy(fhirUtil.patient.isBabyBoomer(t.context.emptyBirthDatePatient))
+	t.falsy(hcvWorkflows.patient.isBabyBoomer(t.context.emptyBirthDatePatient))
 });
 
 ava("Verify Patient with no birth date is not a babyboomer", t => {
-	t.falsy(fhirUtil.patient.isBabyBoomer(t.context.noBirthDatePatient))
+	t.falsy(hcvWorkflows.patient.isBabyBoomer(t.context.noBirthDatePatient))
 });
 
 ava("Verify Patient with nan birth year is not a babyboomer", t => {
-	t.falsy(fhirUtil.patient.isBabyBoomer(t.context.nanBirthYearPatient))
+	t.falsy(hcvWorkflows.patient.isBabyBoomer(t.context.nanBirthYearPatient))
 });
 
 ava("Verify Patient with no birthdate is not a babyboomer", t => {
-	t.falsy(fhirUtil.patient.isBabyBoomer(t.context.nanBirthYearPatient))
+	t.falsy(hcvWorkflows.patient.isBabyBoomer(t.context.nanBirthYearPatient))
 });
 
 ava("Verify millenial Patient with no birthdate is not a babyboomer", t => {
-	t.falsy(fhirUtil.patient.isBabyBoomer(t.context.millennialPatient))
+	t.falsy(hcvWorkflows.patient.isBabyBoomer(t.context.millennialPatient))
 });
