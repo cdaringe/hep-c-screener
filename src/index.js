@@ -79,27 +79,34 @@ module.exports = class Service {
       post(
         `/cds-services/${hooksByHookName['order-review'].id}`,
         async (ctx, id) => {
-          var requiresScreen = await workflows.screening.shouldScreenOnOrder(
-            ctx.request.body
+          var payload = ctx.request.body
+          var requiresScreen = await workflows.screening.shouldScreenIfVenipunctureOrder(
+            payload
           )
+          var cards = []
           if (requiresScreen) {
-            var cards = []
-            // has done screening?
+            var screenProcedure = await workflows.screening.createScreen(payload)
             cards.push({
-              summary: 'Example Card',
+              summary: 'HCV Screen Proposed',
               indicator: 'info',
-              detail:
-                'Add an XYZ complimentary medication OR switch patient order to ABC. See SMART app for more details.',
+              detail: [
+                'A HCV screening has been queued for this patient. Please',
+                'promote the screening to a real procedure order or cancel it.'
+              ].join(' '),
               source: CARD_SOURCE,
               suggestions: [
                 {
-                  label: 'Cancel Hepatatis C Screening',
-                  uuid: '123',
+                  label: 'Actions',
                   actions: [
                     {
+                      type: 'update',
+                      description: 'Promote Screen',
+                      resource: Object.assign({}, screenProcedure, { status: 'order' })
+                    },
+                    {
                       type: 'delete',
-                      description: 'Cancel ABC',
-                      resource: 'MedicationRequest/ABC'
+                      description: 'Cancel Screen',
+                      resource: `${screenProcedure.resourceType}/${screenProcedure.id}`
                     }
                   ]
                 }

@@ -3,11 +3,11 @@ module.exports = {
     resourceType: 'ProcedureRequest',
     id: '123',
     code: {
-      coding: [
-        code: "22778000"
-        display: "venipuncture"
-        system: "http://snomed.org/snomed-ct"
-      ],
+      coding: [{
+        code: '22778000',
+        display: 'venipuncture',
+        system: 'http://snomed.org/snomed-ct'
+      }],
       text: 'venipuncture'
     },
     meta: {
@@ -17,7 +17,7 @@ module.exports = {
     status: 'active', // draft | active | suspended | completed | entered-in-error | cancelled
     intent: 'order', // proposal | plan | order
     subject: {
-      reference: 'Patient/5555003',
+      reference: 'Patient/smart-5555003',
       display: 'Mildred'
     },
     requester: {
@@ -42,13 +42,13 @@ module.exports = {
     ],
     specimen: [
       {
-        reference: "Specimen/SMP25049.01",
-        display: "Blood from Blood"
+        reference: 'Specimen/SMP25049.01',
+        display: 'Blood from Blood'
       }
     ],
     note: [
       {
-        text: "This is a request for a test"
+        text: 'This is a request for a test'
       }
     ]
   }
