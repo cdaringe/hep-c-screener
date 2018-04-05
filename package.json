@@ -6,7 +6,7 @@
   "scripts": {
     "start:watch": "nodemon node src/bin.js",
     "start": "node src/bin.js",
-    "test": "NODE_ENV=test ava --verbose",
+    "test": "cross-env NODE_ENV=test ava --verbose",
     "format": "prettier-standard 'src/**/*.js'",
     "format:staged": "prettier-standard 'src/**/*.js'",
     "precommit": "run-p test format:staged"
@@ -34,6 +34,7 @@
     "ava": "^1.0.0-beta.3",
     "axios": "^0.17.1",
     "bluebird": "^3.5.1",
+    "cross-env": "^5.1.4",
     "freeport": "^1.0.5",
     "husky": "^0.14.3",
     "lint-staged": "^7.0.0",
