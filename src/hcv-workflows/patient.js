@@ -19,7 +19,7 @@ module.exports = function (util) {
         query: { patient: `${patient.id}` }
       })
       do {
-        var { data: { entry: entries } } = res
+        var { data: { entry: entries = [] } } = res
         var conditions = entries.map(entry => entry.resource)
         var isHCVDetected = conditions.some(condition => {
           var snomedCodings = util.codings.getSystemCodings(condition, 'snomed')
@@ -30,6 +30,7 @@ module.exports = function (util) {
         if (isHCVDetected) {
           return isHCVDetected
         } else {
+          if (res.data.total === 0) return false
           res = await client.nextPage({ bundle: res.data })
         }
       } while (res.data.entry.length)
@@ -44,7 +45,7 @@ module.exports = function (util) {
         }
       })
       do {
-        var { data: { entry: entries } } = res
+        var { data: { entry: entries = [] } } = res
         var observations = entries.map(entry => entry.resource)
         var hasHadScreening = observations.some(condition => {
           var loincCodings = util.codings.getSystemCodings(condition, 'loinc')
@@ -55,6 +56,7 @@ module.exports = function (util) {
         if (hasHadScreening) {
           return hasHadScreening
         } else {
+          if (res.data.total === 0) return false
           res = await client.nextPage({ bundle: res.data })
         }
       } while (res.data.entry.length)
