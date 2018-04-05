@@ -1,5 +1,11 @@
 var HCV_SNOMED_CODES = ['128302006', '50711007', '235866006']
+if (process.env.HCV_SNOMED_CODES) {
+  HCV_SNOMED_CODES = process.env.HCV_SNOMED_CODES.split(',').map(code => code.trim())
+}
 var HCV_SCREEN_LOINC_CODES = ['13955-0']
+if (process.env.HCV_SCREEN_LOINC_CODES) {
+  HCV_SCREEN_LOINC_CODES = process.env.HCV_SCREEN_LOINC_CODES.split(',').map(code => code.trim())
+}
 
 module.exports = function (util) {
   return {

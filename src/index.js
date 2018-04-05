@@ -1,20 +1,17 @@
 var Koa = require('koa')
 var defaultsDeep = require('lodash/defaultsDeep')
-var { get, patch, post, put, delete: del } = require('koa-route')
-var errors = require('./errors')
+var { get, post } = require('koa-route')
+// var errors = require('./errors')
 var initServices = require('./services')
 var fs = require('fs-extra')
 var path = require('path')
 var cors = require('koa-cors')
 var workflows = require('./hcv-workflows/')
 var keyBy = require('lodash/keyBy')
+var screeningCards = require('./services/hcv-screen-cards')
 
 var HOOKS_FILENAME = path.join(__dirname, './hooks.json')
 var MIDDLEWARE = ['response-time', 'logger', 'body-parser', 'simple-responses']
-var CARD_SOURCE = {
-  label: 'hep-c-screenr',
-  url: 'https://example.com'
-}
 
 async function getDefaultServiceOpts () {
   return {
@@ -56,22 +53,13 @@ module.exports = class Service {
       post(
         `/cds-services/${hooksByHookName['patient-view'].id}`,
         async (ctx, id) => {
-          var requiresScreen = await workflows.screening.shouldScreen(
-            ctx.request.body
-          )
+          var payload = ctx.request.body
+          var requiresScreen = await workflows.screening.shouldScreen(payload)
           if (requiresScreen) {
-            var cards = []
-            // has done screening?
-            cards.push({
-              summary: 'You are a baby boomer!',
-              detail: 'So... get checked!',
-              indicator: 'warning',
-              source: CARD_SOURCE
-            })
+            var screenProcedure = await workflows.screening.createScreen(payload)
+            return screeningCards({ screenProcedure })
           }
-          return {
-            cards
-          }
+          return { cards: [] }
         }
       )
     )
@@ -83,39 +71,11 @@ module.exports = class Service {
           var requiresScreen = await workflows.screening.shouldScreenIfVenipunctureOrder(
             payload
           )
-          var cards = []
           if (requiresScreen) {
             var screenProcedure = await workflows.screening.createScreen(payload)
-            cards.push({
-              summary: 'HCV Screen Proposed',
-              indicator: 'info',
-              detail: [
-                'A HCV screening has been queued for this patient. Please',
-                'promote the screening to a real procedure order or cancel it.'
-              ].join(' '),
-              source: CARD_SOURCE,
-              suggestions: [
-                {
-                  label: 'Actions',
-                  actions: [
-                    {
-                      type: 'update',
-                      description: 'Promote Screen',
-                      resource: Object.assign({}, screenProcedure, { status: 'order' })
-                    },
-                    {
-                      type: 'delete',
-                      description: 'Cancel Screen',
-                      resource: `${screenProcedure.resourceType}/${screenProcedure.id}`
-                    }
-                  ]
-                }
-              ]
-            })
+            return screeningCards({ screenProcedure })
           }
-          return {
-            cards
-          }
+          return { cards: [] }
         }
       )
     )
