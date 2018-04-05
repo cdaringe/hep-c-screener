@@ -80,7 +80,9 @@ module.exports = function (util) {
                 util.codes.HCV_SCREEN_PROCEDURE_LOINC_CODE === coding.code
             )
             if (hasExistingProcedureRequest) {
-              if (procedureRequest.status.match(/draft|active|completed/)) { return true }
+              if (procedureRequest.status.match(/draft|active|completed/)) {
+                return true
+              }
               return false
             }
           }

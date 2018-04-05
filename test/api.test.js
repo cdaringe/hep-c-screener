@@ -17,11 +17,10 @@ ava('service:get:cds-services', async function (t) {
   t.is(res.data.services.length, 2, 'supports two hooks')
 })
 
-ava.only('service:post:order-review', async t => {
+ava('service:post:order-review', async t => {
   var res = await axios.post(
     `${t.context.origin}/cds-services/hep-c-screenr-order-review`,
     fixtures.hooks.orderReview.mildredVenipuncture
   )
-  console.log('NOW MILDRED SHOULD HAVE A ProcedureRequest')
   t.is(res.status, 200)
 })
