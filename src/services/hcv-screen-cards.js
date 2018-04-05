@@ -19,7 +19,7 @@ module.exports = function generateScreeningCards (opts) {
     source: CARD_SOURCE,
     suggestions: [
       {
-        label: 'Actions',
+        label: 'Promote',
         actions: [
           {
             type: 'update',
@@ -27,7 +27,13 @@ module.exports = function generateScreeningCards (opts) {
             resource: Object.assign({}, opts.screenProcedure, {
               status: 'order'
             })
-          },
+          }
+        ]
+      },
+      {
+        label: 'Delete',
+        uuid: 123,
+        actions: [
           {
             type: 'delete',
             description: 'Cancel Screen',
