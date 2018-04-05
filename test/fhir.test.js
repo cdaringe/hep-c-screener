@@ -1,5 +1,4 @@
 var ava = require('ava').default
-var axios = require('axios').default
 var fhir = require('fhir.js')
 
 ava.beforeEach(async function (t) {

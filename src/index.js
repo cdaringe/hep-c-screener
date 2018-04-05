@@ -1,14 +1,16 @@
 var Koa = require('koa')
 var defaultsDeep = require('lodash/defaultsDeep')
-var { get, patch, post, put, delete: del } = require('koa-route')
-var errors = require('./errors')
+var { get, post } = require('koa-route')
+// var errors = require('./errors')
 var initServices = require('./services')
 var fs = require('fs-extra')
 var path = require('path')
 var cors = require('koa-cors')
 var workflows = require('./hcv-workflows/')
+var keyBy = require('lodash/keyBy')
+var screeningCards = require('./services/hcv-screen-cards')
 
-var HOOK_FILENAME = path.join(__dirname, './hook.json')
+var HOOKS_FILENAME = path.join(__dirname, './hooks.json')
 var MIDDLEWARE = ['response-time', 'logger', 'body-parser', 'simple-responses']
 
 async function getDefaultServiceOpts () {
@@ -37,50 +39,49 @@ module.exports = class Service {
     var app = new Koa()
     app.use(cors())
     var services = await initServices(app, opts)
-    var hook = JSON.parse(await fs.readFile(HOOK_FILENAME))
+    var hooks = JSON.parse(await fs.readFile(HOOKS_FILENAME))
+    var hooksByHookName = keyBy(hooks, 'hook')
     MIDDLEWARE.forEach(mw => app.use(require(`./middleware/${mw}`)))
     app.use(
       get('/cds-services', async (ctx, id) => {
         return {
-          services: [hook]
+          services: hooks
         }
       })
     )
-    var dummyPostRouteName = `/cds-services/${hook.id}`
     app.use(
-      post(dummyPostRouteName, async (ctx, id) => {
-        var requiresScreen = await workflows.screening.shouldScreen(
-          ctx.request.body
-        )
-        if (requiresScreen) {
-          var cards = []
-          // has done screening?
-          cards.push({
-            summary: 'HCV Screen Required',
-            detail: 'Patient needs HCV screen due to meeting criteria from the CDC',
-            indicator: 'warning',
-            source: {
-              label: 'https://www.cdc.gov/hepatitis/hcv/guidelinesc.htm'
-            },
-            suggestions: [
-              {
-                label: 'Cancel HCV Screening',
-                uuid: '123',
-                actions: [
-                  {
-                    type: 'delete',
-                    description: 'Cancel ABC',
-                    resource: 'MedicationRequest/ABC'
-                  }
-                ]
-              }
-            ]
-          })
+      post(
+        `/cds-services/${hooksByHookName['patient-view'].id}`,
+        async (ctx, id) => {
+          var payload = ctx.request.body
+          var requiresScreen = await workflows.screening.shouldScreen(payload)
+          if (requiresScreen) {
+            var screenProcedure = await workflows.screening.createScreen(
+              payload
+            )
+            return screeningCards({ screenProcedure })
+          }
+          return { cards: [] }
         }
-        return {
-          cards
+      )
+    )
+    app.use(
+      post(
+        `/cds-services/${hooksByHookName['order-review'].id}`,
+        async (ctx, id) => {
+          var payload = ctx.request.body
+          var requiresScreen = await workflows.screening.shouldScreenIfVenipunctureOrder(
+            payload
+          )
+          if (requiresScreen) {
+            var screenProcedure = await workflows.screening.createScreen(
+              payload
+            )
+            return screeningCards({ screenProcedure })
+          }
+          return { cards: [] }
         }
-      })
+      )
     )
     this.server = app.listen(opts.server.port)
     services.logger.info(`🚀  listening @ http://localhost:${opts.server.port}`)

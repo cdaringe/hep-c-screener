@@ -1,5 +1,6 @@
 var fhir = require('fhir.js')
 var patient = require('./patient')
+var codes = require('./codes')
 var codings = require('./codings')
 var screening = require('./screening')
 
@@ -11,6 +12,7 @@ function createClient ({ fhirServer, fhirAuthorization }) {
 
 var util = {}
 module.exports = Object.assign(util, {
+  codes: codes(util),
   createClient,
   codings: codings(util),
   patient: patient(util),

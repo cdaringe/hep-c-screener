@@ -1,9 +1,0 @@
-{
-  "id": "hep-c-screenr",
-  "hook": "patient-view",
-  "title": "hep-c-screenr",
-  "description": "Test if patient requires a hepatitis c screen",
-  "prefetch": {
-    "patient": "Patient/{{Patient.id}}"
-  }
-}
