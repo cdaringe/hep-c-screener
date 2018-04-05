@@ -14,7 +14,7 @@ ava.afterEach.always(t => t.context.api.stop())
 
 ava('service:get:cds-services', async function (t) {
   var res = await axios.get(`${t.context.origin}/cds-services`)
-  t.truthy(res.data.services.length === 1)
+  t.is(res.data.services.length, 2, 'supports two hooks')
 })
 
 ava.only('service:post:order-review', async t => {

@@ -56,7 +56,9 @@ module.exports = class Service {
           var payload = ctx.request.body
           var requiresScreen = await workflows.screening.shouldScreen(payload)
           if (requiresScreen) {
-            var screenProcedure = await workflows.screening.createScreen(payload)
+            var screenProcedure = await workflows.screening.createScreen(
+              payload
+            )
             return screeningCards({ screenProcedure })
           }
           return { cards: [] }
@@ -72,7 +74,9 @@ module.exports = class Service {
             payload
           )
           if (requiresScreen) {
-            var screenProcedure = await workflows.screening.createScreen(payload)
+            var screenProcedure = await workflows.screening.createScreen(
+              payload
+            )
             return screeningCards({ screenProcedure })
           }
           return { cards: [] }

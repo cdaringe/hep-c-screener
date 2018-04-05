@@ -1,24 +1,24 @@
 var ava = require('ava').default
 var hcvWorkflows = require('../../src/hcv-workflows')
+var fhir = require('fhir.js')
 
-ava.before(t => {
+ava.beforeEach(t => {
   t.context.babyBoomerPatient = {
     birthDate: '1951-03-09'
   }
-
   t.context.noBirthDatePatient = {}
-
   t.context.emptyBirthDatePatient = {
     birthDate: ''
   }
-
   t.context.nanBirthYearPatient = {
     birthDate: 'aaaa-09-01'
   }
-
   t.context.millennialPatient = {
     birthDate: '1995-03-09'
   }
+  t.context.client = fhir({
+    baseUrl: process.env.FHIR_URL || 'https://sb-fhir-stu3.smarthealthit.org/smartstu3/open'
+  })
 })
 
 ava('Verify Patient is a babyboomer', t => {

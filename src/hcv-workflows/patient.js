@@ -1,12 +1,3 @@
-var HCV_SNOMED_CODES = ['128302006', '50711007', '235866006']
-if (process.env.HCV_SNOMED_CODES) {
-  HCV_SNOMED_CODES = process.env.HCV_SNOMED_CODES.split(',').map(code => code.trim())
-}
-var HCV_SCREEN_LOINC_CODES = ['13955-0']
-if (process.env.HCV_SCREEN_LOINC_CODES) {
-  HCV_SCREEN_LOINC_CODES = process.env.HCV_SCREEN_LOINC_CODES.split(',').map(code => code.trim())
-}
-
 module.exports = function (util) {
   return {
     isBabyBoomer (patient) {
@@ -30,7 +21,7 @@ module.exports = function (util) {
         var isHCVDetected = conditions.some(condition => {
           var snomedCodings = util.codings.getSystemCodings(condition, 'snomed')
           return snomedCodings.some(coding =>
-            HCV_SNOMED_CODES.includes(coding.code)
+            util.codes.HCV_SNOMED_CODES.includes(coding.code)
           )
         })
         if (isHCVDetected) {
@@ -56,11 +47,46 @@ module.exports = function (util) {
         var hasHadScreening = observations.some(condition => {
           var loincCodings = util.codings.getSystemCodings(condition, 'loinc')
           return loincCodings.some(coding =>
-            HCV_SCREEN_LOINC_CODES.includes(coding.code)
+            util.codes.HCV_SCREEN_OBSERVATION_LOINC_CODES.includes(coding.code)
           )
         })
         if (hasHadScreening) {
           return hasHadScreening
+        } else {
+          if (res.data.total === 0) return false
+          res = await client.nextPage({ bundle: res.data })
+        }
+      } while (res.data.entry.length)
+      return false
+    },
+    async hasOutstandingProcedureRequest ({ client, patient }) {
+      var res = await client.search({
+        type: 'ProcedureRequest',
+        query: {
+          patient: `${patient.id}`
+        }
+      })
+      do {
+        var { data: { entry: entries = [] } } = res
+        var procedures = entries.map(entry => entry.resource)
+        var hasOutstandingProcedureRequest = procedures.some(
+          procedureRequest => {
+            var loincCodings = util.codings.getSystemCodings(
+              procedureRequest,
+              'loinc'
+            )
+            var hasExistingProcedureRequest = loincCodings.some(
+              coding =>
+                util.codes.HCV_SCREEN_PROCEDURE_LOINC_CODE === coding.code
+            )
+            if (hasExistingProcedureRequest) {
+              if (procedureRequest.status.match(/draft|active|completed/)) { return true }
+              return false
+            }
+          }
+        )
+        if (hasOutstandingProcedureRequest) {
+          return hasOutstandingProcedureRequest
         } else {
           if (res.data.total === 0) return false
           res = await client.nextPage({ bundle: res.data })

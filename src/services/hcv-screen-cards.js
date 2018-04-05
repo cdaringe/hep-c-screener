@@ -31,7 +31,9 @@ module.exports = function generateScreeningCards (opts) {
           {
             type: 'delete',
             description: 'Cancel Screen',
-            resource: `${opts.screenProcedure.resourceType}/${opts.screenProcedure.id}`
+            resource: `${opts.screenProcedure.resourceType}/${
+              opts.screenProcedure.id
+            }`
           }
         ]
       }

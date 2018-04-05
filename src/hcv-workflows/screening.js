@@ -1,5 +1,3 @@
-var VENIPUNCTURE_SNOMED_CODES = ['22778000']
-
 module.exports = function (util) {
   return {
     async createScreen (cdsPayload) {
@@ -11,7 +9,7 @@ module.exports = function (util) {
           code: {
             coding: [
               {
-                code: '47365-2',
+                code: util.codes.HCV_SCREEN_PROCEDURE_LOINC_CODE,
                 system: 'http://loinc.org/'
               }
             ]
@@ -30,19 +28,26 @@ module.exports = function (util) {
       var client = util.createClient(cdsPayload)
       var isBoomer = util.patient.isBabyBoomer(patient)
       if (!isBoomer) return false
-      var [hasHCV, hasPreviousHCVScreen] = await Promise.all([
+      var [
+        hasHCV,
+        hasOutstandingProcedureRequest,
+        hasPreviousHCVScreen
+      ] = await Promise.all([
         util.patient.hasHCV({ client, patient }),
+        util.patient.hasOutstandingProcedureRequest({ client, patient }),
         util.patient.hasPreviousHCVScreen({ client, patient })
       ])
-      return !hasHCV && !hasPreviousHCVScreen
+      return !hasHCV && !hasPreviousHCVScreen && !hasOutstandingProcedureRequest
     },
     async shouldScreenIfVenipunctureOrder (cdsPayload) {
-      return cdsPayload.context.orders.some(order => {
+      var isVenipuncture = cdsPayload.context.orders.some(order => {
         var snomedCodings = util.codings.getSystemCodings(order, 'snomed')
         return snomedCodings.some(coding =>
-          VENIPUNCTURE_SNOMED_CODES.includes(coding.code)
+          util.codes.VENIPUNCTURE_SNOMED_CODES.includes(coding.code)
         )
       })
+      if (!isVenipuncture) return false
+      return this.shouldScreen(cdsPayload)
     }
   }
 }
