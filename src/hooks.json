@@ -1,17 +1,17 @@
 [
   {
-    "id": "hep-c-screenr-patient-view",
+    "id": "hep-c-screener-patient-view",
     "hook": "patient-view",
-    "title": "hep-c-screenr-patient-view",
+    "title": "hep-c-screener-patient-view",
     "description": "Test if patient requires a hepatitis c screen on patient-view",
     "prefetch": {
       "patient": "Patient/{{Patient.id}}"
     }
   },
   {
-    "id": "hep-c-screenr-order-review",
+    "id": "hep-c-screener-order-review",
     "hook": "order-review",
-    "title": "hep-c-screenr-order-review",
+    "title": "hep-c-screener-order-review",
     "description": "Test if patient requires a hepatitis c screen on order-review",
     "prefetch": {
       "patient": "Patient/{{Patient.id}}"

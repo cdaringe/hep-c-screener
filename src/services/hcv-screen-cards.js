@@ -1,6 +1,6 @@
 // TODO: Update the URL
 var CARD_SOURCE = {
-  label: 'hep-c-screenr',
+  label: 'hep-c-screener',
   url: 'finalProdServerAddress'
 }
 
