@@ -1,6 +1,6 @@
 var CARD_SOURCE = {
-  label: 'hep-c-screenr',
-  url: 'https://example.com'
+  label: 'USPSTF',
+  url: 'https://www.uspreventiveservicestaskforce.org/Page/Document/RecommendationStatementFinal/hepatitis-c-screening'
 }
 
 module.exports = function generateScreeningCards (opts) {
@@ -10,11 +10,11 @@ module.exports = function generateScreeningCards (opts) {
   }
   var cards = []
   var proposedProcedureCard = {
-    summary: 'HCV Screen Proposed',
+    summary: 'HCV Screening Required',
     indicator: 'info',
     detail: [
-      'A HCV screening has been queued for this patient. Please',
-      'promote the screening to a real procedure order or cancel it.'
+      'Patient should be screened for Hepatitis C Virus (HCV) infection,',
+      'as recommended by CDC and USPSTF'
     ].join(' '),
     source: CARD_SOURCE,
     suggestions: [
