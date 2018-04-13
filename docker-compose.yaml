@@ -1,7 +1,7 @@
 version: '3.4'
 services:
-  hep-c-screenr:
-    image: apps2.hdap.gatech.edu/hep-c-screener:latest
+  hep-c-screener:
+    image: build.hdap.gatech.edu/hep-c-screener:latest
     ports:
       - 8080:8080
     restart: unless-stopped
