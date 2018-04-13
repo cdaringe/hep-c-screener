@@ -1,7 +1,6 @@
 var Koa = require('koa')
 var defaultsDeep = require('lodash/defaultsDeep')
 var { get, post } = require('koa-route')
-// var errors = require('./errors')
 var initServices = require('./services')
 var fs = require('fs-extra')
 var path = require('path')
@@ -10,6 +9,7 @@ var workflows = require('./hcv-workflows/')
 var keyBy = require('lodash/keyBy')
 var screeningCards = require('./services/hcv-screen-cards')
 
+var DISABLE_DEFAULT_SCREENING_ORDER = process.env.DISABLE_DEFAULT_SCREENING_ORDER || false
 var HOOKS_FILENAME = path.join(__dirname, './hooks.json')
 var MIDDLEWARE = ['response-time', 'logger', 'body-parser', 'simple-responses']
 
@@ -55,13 +55,17 @@ module.exports = class Service {
         async (ctx, id) => {
           var payload = ctx.request.body
           var requiresScreen = await workflows.screening.shouldScreen(payload)
-          if (requiresScreen) {
-            var screenProcedure = await workflows.screening.createScreen(
-              payload
-            )
-            return screeningCards({ screenProcedure })
+          if (!requiresScreen) return { cards: [] }
+          var screenProcedure
+          var screenOrderButton
+          if (DISABLE_DEFAULT_SCREENING_ORDER) {
+            screenOrderButton =
+            return screeningCards.propose({ screenProcedure })
           }
-          return { cards: [] }
+          var screenProcedure = await workflows.screening.createScreen(
+            payload
+          )
+          return screeningCards.ordered({ screenProcedure })
         }
       )
     )
@@ -74,9 +78,7 @@ module.exports = class Service {
             payload
           )
           if (requiresScreen) {
-            var screenProcedure = await workflows.screening.createScreen(
-              payload
-            )
+            var screenProcedure = await workflows.screening.createScreen(payload)
             return screeningCards({ screenProcedure })
           }
           return { cards: [] }

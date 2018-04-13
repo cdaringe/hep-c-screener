@@ -1,9 +1,16 @@
+var PROCEDURE_REQUEST_ORDER_INTENT = (process.env.PROCEDURE_REQUEST_ORDER_INTENT || 'proposal').trim()
+var PROCEDURE_REQUEST_ORDER_STATUS = (process.env.PROCEDURE_REQUEST_ORDER_STATUS || 'draft').trim()
+
 module.exports = function (util) {
   return {
     async createScreen (cdsPayload) {
       var client = util.createClient(cdsPayload)
       var patient = cdsPayload.prefetch.patient.resource
-      var res = await client.create({
+      var res = await client.create(this.createScreenPayload(patient))
+      return res.data
+    },
+    createScreenPayload (patient) {
+      return {
         resource: {
           resourceType: 'ProcedureRequest',
           code: {
@@ -14,14 +21,13 @@ module.exports = function (util) {
               }
             ]
           },
-          status: 'draft',
-          intent: 'proposal',
+          status: PROCEDURE_REQUEST_ORDER_STATUS,
+          intent: PROCEDURE_REQUEST_ORDER_INTENT,
           subject: {
             reference: `Patient/${patient.id}`
           }
         }
-      })
-      return res.data
+      }
     },
     async shouldScreen (cdsPayload) {
       var patient = cdsPayload.prefetch.patient.resource

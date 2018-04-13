@@ -8,28 +8,37 @@ rad! 💯
 
 ## usage
 
-- `yarn`
-- `yarn start`
+the screening service can be run in two different ways--via `docker` or via `nodejs`.  how to use either of these software tools is left as an exercise for the user.
 
-or
+### docker
 
-- `npm install`
-- `npm start`
+`docker run -p <host-port>:8080 hep-c-screener`
+
+### nodejs
+
+nodejs 8.x or higher is required.
+
+- install dependencies, `yarn`, or `npm install`
+- run the server, `yarn start`, or `npm start`
 
 ### configuration
 
-all configuration is delivered via environment variables
+all configuration is delivered via environment variables.  how to set environment variables depends on the OS and deployment mechanism used.  how to set these variables is left as an exercise for the user.
 
 ### server
 
 - `PORT`, HTTP port to run server on, defaults to 8080
 
-### hepatitis c codings
+### hepatitis c workflow
 
 - `HCV_SCREEN_OBSERVATION_LOINC_CODES`, csv,of,codes defaults to `13955-0`
 - `HCV_SCREEN_PROCEDURE_LOINC_CODE`, code for ordering HCV screen, defaults to `47365-2`
 - `HCV_SNOMED_CODES`, csv,of,codes to check if someone has/has-had HCV. defaults to `128302006,50711007,235866006`
 - `VENIPUNCTURE_SNOMED_CODES`, csv,of,codes defaults to `22778000`
+- `PROCEDURE_REQUEST_ORDER_INTENT`, defaults to `proposal`
+  - a valid [ReferralRequest](https://www.hl7.org/fhir/valueset-request-intent.html) is required.  most likely, you will want `proposal` or `order`
+- `PROCEDURE_REQUEST_ORDER_STATUS`, defaults to `draft`
+  - any generated `ProcedureRequest` (using `HCV_SCREEN_PROCEDURE_LOINC_CODE`) will always be in `draft` state by default.  if providers want to immediately load the order into the EHR system, set this value to `active`
 
 if other code systems or codes themselves are required by default, please open a pull request
 
