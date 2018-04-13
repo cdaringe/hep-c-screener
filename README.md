@@ -1,4 +1,4 @@
-# hep-c-screenr
+# hep-c-screener
 
 a CDS hook hepatitis c screening service.
 

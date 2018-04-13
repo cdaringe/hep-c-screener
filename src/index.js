@@ -15,7 +15,7 @@ var MIDDLEWARE = ['response-time', 'logger', 'body-parser', 'simple-responses']
 
 async function getDefaultServiceOpts () {
   return {
-    name: process.env.SERVICE_NAME || 'hep-c-screenr',
+    name: process.env.SERVICE_NAME || 'hep-c-screener',
     logger: {
       level:
         process.env.LOG_LEVEL || process.env.NODE_ENV === 'development'
