@@ -23,7 +23,12 @@
       "program": "${workspaceFolder}/src/bin.js",
       "skipFiles": [
         "<node_internals>/**/*.js"
-      ]
+      ],
+      "env": {
+        "DISABLE_DEFAULT_SCREENING_ORDER": "1",
+        "PROCEDURE_REQUEST_ORDER_STATUS": "active",
+        "PROCEDURE_REQUEST_ORDER_INTENT": "order"
+      }
     }
   ]
 }

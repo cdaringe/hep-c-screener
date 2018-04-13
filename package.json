@@ -2,7 +2,7 @@
   "name": "hep-c-screener",
   "version": "0.0.1",
   "main": "src/index.js",
-  "private": true,
+  "bin": "src/bin.js",
   "scripts": {
     "start:watch": "nodemon node src/bin.js",
     "start": "node src/bin.js",
