@@ -37,7 +37,7 @@ module.exports = function (util) {
         util.patient.hasOutstandingProcedureRequest({ client, patient }),
         util.patient.hasPreviousHCVScreen({ client, patient })
       ])
-      return !hasHCV && !hasPreviousHCVScreen// && !hasOutstandingProcedureRequest
+      return !hasHCV && !hasPreviousHCVScreen && !hasOutstandingProcedureRequest
     },
     async shouldScreenIfVenipunctureOrder (cdsPayload) {
       var isVenipuncture = cdsPayload.context.orders.some(order => {
