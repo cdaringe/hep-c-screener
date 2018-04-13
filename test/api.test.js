@@ -19,7 +19,7 @@ ava('service:get:cds-services', async function (t) {
 
 ava('service:post:order-review', async t => {
   var res = await axios.post(
-    `${t.context.origin}/cds-services/hep-c-screenr-order-review`,
+    `${t.context.origin}/cds-services/hep-c-screener-order-review`,
     fixtures.hooks.orderReview.mildredVenipuncture
   )
   t.is(res.status, 200)
