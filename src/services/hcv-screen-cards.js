@@ -19,7 +19,8 @@ var DEFAULT_SCREEN_CARD = {
     },
     {
       label: 'USPSTF',
-      url: 'https://www.uspreventiveservicestaskforce.org/Page/Document/RecommendationStatementFinal/hepatitis-c-screening'
+      url:
+        'https://www.uspreventiveservicestaskforce.org/Page/Document/RecommendationStatementFinal/hepatitis-c-screening'
     }
   ]
 }
@@ -30,38 +31,35 @@ function screenOrdered (opts) {
     throw new Error('card generator missing ProcedureRequest FHIR resource')
   }
   var cards = []
-  var card = Object.assign(
-    DEFAULT_SCREEN_CARD,
-    {
-      suggestions: [
-        {
-          label: 'Promote',
-          actions: [
-            {
-              type: 'update',
-              description: 'Promote Screen',
-              resource: Object.assign({}, opts.screenProcedure, {
-                status: 'order'
-              })
-            }
-          ]
-        },
-        {
-          label: 'Delete',
-          uuid: 123,
-          actions: [
-            {
-              type: 'delete',
-              description: 'Cancel Screen',
-              resource: `${opts.screenProcedure.resourceType}/${
-                opts.screenProcedure.id
-              }`
-            }
-          ]
-        }
-      ]
-    }
-  )
+  var card = Object.assign(DEFAULT_SCREEN_CARD, {
+    suggestions: [
+      {
+        label: 'Promote',
+        actions: [
+          {
+            type: 'update',
+            description: 'Promote Screen',
+            resource: Object.assign({}, opts.screenProcedure, {
+              status: 'order'
+            })
+          }
+        ]
+      },
+      {
+        label: 'Delete',
+        uuid: 123,
+        actions: [
+          {
+            type: 'delete',
+            description: 'Cancel Screen',
+            resource: `${opts.screenProcedure.resourceType}/${
+              opts.screenProcedure.id
+            }`
+          }
+        ]
+      }
+    ]
+  })
   cards.push(card)
   return { cards }
 }
@@ -72,23 +70,20 @@ function screenProposed (opts) {
     throw new Error('screening order payload missing')
   }
   var cards = []
-  var card = Object.assign(
-    DEFAULT_SCREEN_CARD,
-    {
-      suggestions: [
-        {
-          label: 'Order Screening',
-          actions: [
-            {
-              type: 'create',
-              description: 'Order Screening Now',
-              resource: opts.createScreenPayload
-            }
-          ]
-        }
-      ]
-    }
-  )
+  var card = Object.assign(DEFAULT_SCREEN_CARD, {
+    suggestions: [
+      {
+        label: 'Order Screening',
+        actions: [
+          {
+            type: 'create',
+            description: 'Order Screening Now',
+            resource: opts.createScreenPayload
+          }
+        ]
+      }
+    ]
+  })
   cards.push(card)
   return { cards }
 }

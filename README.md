@@ -29,14 +29,16 @@ all configuration is delivered via environment variables.  how to set environmen
 
 ### server
 
-- `PORT`, HTTP port to run server on, defaults to 8080
+| variable | default | description                |
+| -------- | ------- | -------------------------- |
+| `PORT`   | `8080`  | HTTP port to run server on |
 
 ### hepatitis c workflow
 
 | variable                             | default                        | description                                                                                                                                                                                                             |
 | ------------------------------------ | ------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | `DISABLE_DEFAULT_SCREENING_ORDER`    | <<unset>>                      | set this field to `1` to *_not_* order a HCV screen procedure by default. a card with a button to order the procedure will be presented                                                                                 |
-| `HCV_SCREEN_OBSERVATION_LOINC_CODES` | `13955-0`                      | csv,of,codes to check is a HCV screen has been performed for a patient before                                                                                                                                                                                                       |
+| `HCV_SCREEN_OBSERVATION_LOINC_CODES` | `13955-0`                      | `csv,of,codes` to check if a HCV screen has been performed for a patient before                                                                                                                                                                                                       |
 | `HCV_SCREEN_PROCEDURE_LOINC_CODE`    | `47365-2`                      | single code for ordering HCV screen                                                                                                                                                                                            |
 | `HCV_SNOMED_CODES`                   | `128302006,50711007,235866006` | csv,of,codes to check if someone has or has had HCV                                                                                                                                                                        |
 | `PROCEDURE_REQUEST_ORDER_INTENT`     | `proposal`                     | a [RequestIntent](https://www.hl7.org/fhir/valueset-request-intent.html) for the HCV screening order.  most likely, you will want `proposal` or `order`                                                                         |

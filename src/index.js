@@ -9,7 +9,8 @@ var workflows = require('./hcv-workflows/')
 var keyBy = require('lodash/keyBy')
 var screeningCards = require('./services/hcv-screen-cards')
 
-var DISABLE_DEFAULT_SCREENING_ORDER = process.env.DISABLE_DEFAULT_SCREENING_ORDER || false
+var DISABLE_DEFAULT_SCREENING_ORDER =
+  process.env.DISABLE_DEFAULT_SCREENING_ORDER || false
 var HOOKS_FILENAME = path.join(__dirname, './hooks.json')
 var MIDDLEWARE = ['response-time', 'logger', 'body-parser', 'simple-responses']
 
