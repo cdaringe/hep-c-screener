@@ -1,5 +1,9 @@
-var PROCEDURE_REQUEST_ORDER_INTENT = (process.env.PROCEDURE_REQUEST_ORDER_INTENT || 'proposal').trim()
-var PROCEDURE_REQUEST_ORDER_STATUS = (process.env.PROCEDURE_REQUEST_ORDER_STATUS || 'draft').trim()
+var PROCEDURE_REQUEST_ORDER_INTENT = (
+  process.env.PROCEDURE_REQUEST_ORDER_INTENT || 'proposal'
+).trim()
+var PROCEDURE_REQUEST_ORDER_STATUS = (
+  process.env.PROCEDURE_REQUEST_ORDER_STATUS || 'draft'
+).trim()
 
 module.exports = function (util) {
   return {

@@ -57,15 +57,15 @@ module.exports = class Service {
           var requiresScreen = await workflows.screening.shouldScreen(payload)
           if (!requiresScreen) return { cards: [] }
           var screenProcedure
-          var screenOrderButton
+          var createScreenPayload
           if (DISABLE_DEFAULT_SCREENING_ORDER) {
-            screenOrderButton =
-            return screeningCards.propose({ screenProcedure })
+            createScreenPayload = workflows.screening.createScreenPayload(
+              payload
+            )
+            return screeningCards.screenProposed({ createScreenPayload })
           }
-          var screenProcedure = await workflows.screening.createScreen(
-            payload
-          )
-          return screeningCards.ordered({ screenProcedure })
+          screenProcedure = await workflows.screening.createScreen(payload)
+          return screeningCards.screenOrdered({ screenProcedure })
         }
       )
     )
@@ -77,11 +77,17 @@ module.exports = class Service {
           var requiresScreen = await workflows.screening.shouldScreenIfVenipunctureOrder(
             payload
           )
-          if (requiresScreen) {
-            var screenProcedure = await workflows.screening.createScreen(payload)
-            return screeningCards({ screenProcedure })
+          if (!requiresScreen) return { cards: [] }
+          var screenProcedure
+          var createScreenPayload
+          if (DISABLE_DEFAULT_SCREENING_ORDER) {
+            createScreenPayload = workflows.screening.createScreenPayload(
+              payload
+            )
+            return screeningCards.screenProposed({ createScreenPayload })
           }
-          return { cards: [] }
+          screenProcedure = await workflows.screening.createScreen(payload)
+          return screeningCards.screenOrdered({ screenProcedure })
         }
       )
     )
