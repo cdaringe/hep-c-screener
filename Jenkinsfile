@@ -25,7 +25,7 @@ pipeline{
         stage('Notify'){
             steps{
                 script{
-                    rancher confirm: true, credentialId: 'rancher-server', endpoint: 'http://rancher.hdap.gatech.edu:8080/v2-beta', environmentId:'1a7', environments: '', image: 'build.hdap.gatech.edu/hep-c-screener:latest', ports: '', service: 'PDXsters/hep-c-screener', timeout: 50
+                    rancher confirm: true, credentialId: 'rancher-server', endpoint: 'http://rancher.hdap.gatech.edu:8080/v2-beta', environmentId:'1a7', environments: '', image: 'build.hdap.gatech.edu/hep-c-screener:latest', ports: '8080:8080', service: 'PDXsters/hep-c-screener', timeout: 50
                 }
             }
         }
