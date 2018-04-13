@@ -1,6 +1,7 @@
+// TODO: Update the URL
 var CARD_SOURCE = {
-  label: 'USPSTF',
-  url: 'https://www.uspreventiveservicestaskforce.org/Page/Document/RecommendationStatementFinal/hepatitis-c-screening'
+  label: 'hep-c-screenr',
+  url: 'finalProdServerAddress'
 }
 
 module.exports = function generateScreeningCards (opts) {
@@ -17,6 +18,16 @@ module.exports = function generateScreeningCards (opts) {
       'as recommended by CDC and USPSTF'
     ].join(' '),
     source: CARD_SOURCE,
+    links: [
+      {
+        label: 'CDC',
+        url: 'https://www.cdc.gov/mmwr/preview/mmwrhtml/rr6104a1.htm'
+      },
+      {
+        label: 'USPSTF',
+        url: 'https://www.uspreventiveservicestaskforce.org/Page/Document/RecommendationStatementFinal/hepatitis-c-screening'
+      }
+    ],
     suggestions: [
       {
         label: 'Promote',
