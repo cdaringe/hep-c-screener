@@ -61,7 +61,7 @@ module.exports = class Service {
           var createScreenPayload
           if (DISABLE_DEFAULT_SCREENING_ORDER) {
             createScreenPayload = workflows.screening.createScreenPayload(
-              payload
+              payload.prefetch.patient.resource
             )
             return screeningCards.screenProposed({ createScreenPayload })
           }
