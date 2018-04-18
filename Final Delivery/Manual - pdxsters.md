@@ -5,6 +5,8 @@
 
 ## Manual
 
+## Description
+
 a [CDS Hooks](http://cds-hooks.org/) hepatitis c screening service.
 
 this service detects if a patient needs a hepatitis c screening per CDS recommended guidelines.  if a screening is required for a patient, it can be automatically ordered into the EHR system via [FHIR](http://www.hl7.org/implement/standards/fhir/) REST services, and/or administered via CDS hook card actions.  the service is highly configurable and easy to deploy.
