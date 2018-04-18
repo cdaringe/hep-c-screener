@@ -55,7 +55,3 @@ if other code systems or codes themselves are required by default, please open a
 ## fine print
 
 - when testing to see if a patient already has an outstanding HCV procedure request, we check only the `HCV_SCREEN_PROCEDURE_LOINC_CODE`, and only if that procedure request status is `draft|active|completed`.  `cancelled|suspended` etc status codes still allow the service to create a new `HCV_SCREEN_PROCEDURE_LOINC_CODE` ProcedureRequest for the patient.
-
-## contributing
-
-see [CONTRIBUTING.md](./CONTRIBUTING.md)
