@@ -5,4 +5,9 @@
 
 ## Special Instructions
 
-Provide instructions [“navigate to this URL… type in this… click on that…etc.”] for us (Instructors/OMs) to follow in order to run your application, please identify these details in a file called “Special Instructions – <Team Name>.pdf” This file is to be placed in “Final Delivery” directory. This file is not optional.
+Run `docker-compose up` from the Final Delivery folder or from the root of our repository.
+
+You can then access our CDS service from `<docker_host_url>/cds-services`.
+
+Please see Manual.pdf for further instructions on how to use this CDS service.
+
