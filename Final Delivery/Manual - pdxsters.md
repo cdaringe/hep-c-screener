@@ -3,7 +3,7 @@
 - Christopher Dieringer, Kraig Strong, Andrew Hosokawa & Elroy Ashtian
 - https://github.gatech.edu/gt-hit-spring2018/HEPATITIS-C-SCREENING-IN-BABY-BOOMERS
 
-## Manual
+# Manual
 
 ## Description
 
