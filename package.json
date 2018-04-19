@@ -1,7 +1,7 @@
 {
   "name": "hep-c-screener",
   "description": "a cds-hooks service to prompts care providers to screen baby-boomers for hepatitis c",
-  "version": "0.0.1",
+  "version": "0.0.0.semantic-release",
   "main": "src/index.js",
   "bin": "src/bin.js",
   "scripts": {
