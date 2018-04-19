@@ -5,6 +5,7 @@
   "main": "src/index.js",
   "bin": "src/bin.js",
   "scripts": {
+    "lint": "standard",
     "start:watch": "nodemon node src/bin.js",
     "start": "node src/bin.js",
     "test": "cross-env NODE_ENV=test ava --verbose",
@@ -43,6 +44,7 @@
     "npm-run": "^4.1.2",
     "npm-run-all": "^4.1.2",
     "prettier-standard": "^8.0.0",
+    "semantic-release": "^15.1.7",
     "standard": "^11.0.1"
   },
   "ava": {
