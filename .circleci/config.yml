@@ -30,4 +30,4 @@ jobs:
       - run: yarn test
 
       # cut a release
-      - run: npx semantic-release
+      - run: npx semantic-release --generate-notes
