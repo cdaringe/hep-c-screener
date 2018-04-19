@@ -1,5 +1,7 @@
 # hep-c-screener
 
+[![CircleCI](https://circleci.com/gh/cdaringe/hep-c-screener.svg?style=svg)](https://circleci.com/gh/cdaringe/hep-c-screener) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+
 a [CDS Hooks](http://cds-hooks.org/) hepatitis c screening service.
 
 this service detects if a patient needs a hepatitis c screening per CDS recommended guidelines.  if a screening is required for a patient, it can be automatically ordered into the EHR system via [FHIR](http://www.hl7.org/implement/standards/fhir/) REST services, and/or administered via CDS hook card actions.  the service is highly configurable and easy to deploy.
@@ -19,6 +21,13 @@ please see the [CDS Hooks](http://cds-hooks.org/) website to learn how to intera
 ### nodejs
 
 nodejs 8.x or higher is required.
+
+## production mode
+
+- install, `npm install --global hep-c-screener`
+- `hep-c-screener` should now be on your `$PATH`
+
+### dev mode
 
 - install dependencies, `yarn`, or `npm install`
 - run the server, `yarn start`, or `npm start`
