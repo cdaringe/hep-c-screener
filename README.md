@@ -16,18 +16,18 @@ please see the [CDS Hooks](http://cds-hooks.org/) website to learn how to intera
 
 ### docker
 
-`docker run -p <host-port>:8080 hep-c-screener`
+`docker run -p <host-port>:8080 cdaringe/hep-c-screener`
 
 ### nodejs
 
 nodejs 8.x or higher is required.
 
-## production mode
+#### production mode
 
 - install, `npm install --global hep-c-screener`
 - `hep-c-screener` should now be on your `$PATH`
 
-### dev mode
+#### dev mode
 
 - install dependencies, `yarn`, or `npm install`
 - run the server, `yarn start`, or `npm start`
