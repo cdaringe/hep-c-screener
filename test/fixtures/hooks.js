@@ -3,7 +3,7 @@ var procedureRequests = require('./procedure-requests')
 var mildredVenipuncture = {
   hook: 'order-review',
   hookInstance: 'd80451db-928e-43d4-9145-a36ff6b7283c',
-  fhirServer: 'https://sb-fhir-stu3.smarthealthit.org/smartstu3/open',
+  fhirServer: 'https://r3.smarthealthit.org',
   redirect: 'http://sandbox.cds-hooks.org/service-done.html',
   user: 'Practitioner/example',
   patient: 'smart-5555003',

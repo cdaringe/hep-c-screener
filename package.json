@@ -4,18 +4,18 @@
   "version": "0.0.0-development",
   "main": "src/index.js",
   "bin": "src/bin.js",
+  "license": "MIT",
   "scripts": {
     "lint": "standard",
     "start:watch": "nodemon node src/bin.js",
     "start": "node src/bin.js",
     "test": "cross-env NODE_ENV=test ava --verbose",
     "format": "prettier-standard 'src/**/*.js'",
-    "format:staged": "prettier-standard 'src/**/*.js'",
-    "precommit": "run-p test format:staged"
+    "format:staged": "prettier-standard 'src/**/*.js'"
   },
   "dependencies": {
     "fhir.js": "^0.0.20",
-    "fs-extra": "^5.0.0",
+    "fs-extra": "^7.0.0",
     "invariant": "^2.2.2",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
@@ -24,7 +24,8 @@
     "koa-route": "^3.2.0",
     "lodash": "^4.17.5",
     "perish": "^1.0.1",
-    "pino": "^4.10.4"
+    "pino": "^5.7.0",
+    "pino-pretty": "^2.2.1"
   },
   "repository": {
     "type": "git",
@@ -38,14 +39,14 @@
     "bluebird": "^3.5.1",
     "cross-env": "^5.1.4",
     "freeport": "^1.0.5",
-    "husky": "^0.14.3",
+    "husky": "^1.1.2",
     "lint-staged": "^7.0.0",
     "nodemon": "^1.15.0",
     "npm-run": "^5.0.1",
     "npm-run-all": "^4.1.2",
     "prettier-standard": "^8.0.0",
     "semantic-release": "^15.1.7",
-    "standard": "^11.0.1"
+    "standard": "^12.0.1"
   },
   "ava": {
     "babel": false,
@@ -57,6 +58,11 @@
         "prettier-standard",
         "git add"
       ]
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "run-p test format:staged"
     }
   }
 }
