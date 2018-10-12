@@ -17,7 +17,7 @@ ava.beforeEach(t => {
     birthDate: '1995-03-09'
   }
   t.context.client = fhir({
-    baseUrl: process.env.FHIR_URL || 'https://sb-fhir-stu3.smarthealthit.org/smartstu3/open'
+    baseUrl: process.env.FHIR_URL || 'https://r3.smarthealthit.org'
   })
 })
 

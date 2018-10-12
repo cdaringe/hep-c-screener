@@ -4,6 +4,7 @@
   "version": "0.0.0-development",
   "main": "src/index.js",
   "bin": "src/bin.js",
+  "license": "MIT",
   "scripts": {
     "lint": "standard",
     "start:watch": "nodemon node src/bin.js",
@@ -24,7 +25,8 @@
     "koa-route": "^3.2.0",
     "lodash": "^4.17.5",
     "perish": "^1.0.1",
-    "pino": "^5.7.0"
+    "pino": "^5.7.0",
+    "pino-pretty": "^2.2.1"
   },
   "repository": {
     "type": "git",
