@@ -24,7 +24,7 @@
     "koa-route": "^3.2.0",
     "lodash": "^4.17.5",
     "perish": "^1.0.1",
-    "pino": "^5.7.0",
+    "pino": "^5.12.3",
     "pino-pretty": "^2.2.1"
   },
   "repository": {
