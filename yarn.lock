@@ -2583,10 +2583,10 @@ fast-levenshtein@~2.0.4:
   resolved "https://registry.yarnpkg.com/fast-levenshtein/-/fast-levenshtein-2.0.6.tgz#3d8a5c66883a16a30ca8643e851f19baa7797917"
   integrity sha1-PYpcZog6FqMMqGQ+hR8Zuqd5eRc=
 
-fast-redact@^1.4.2:
-  version "1.4.2"
-  resolved "https://registry.yarnpkg.com/fast-redact/-/fast-redact-1.4.2.tgz#14989f452ee07f0723fbb483ee778d363135b7ad"
-  integrity sha512-ttC8IgelNvYqb9RBC+rirgUCVPtPVonfdeRdsHBcBx3kzQat1DafbUKAEhLo5GnvuBqda+Xe1BvblecPpQkZ2Q==
+fast-redact@^1.4.4:
+  version "1.5.0"
+  resolved "https://registry.yarnpkg.com/fast-redact/-/fast-redact-1.5.0.tgz#302892f566750c4f5eec7b830bfc9bc473484034"
+  integrity sha512-Afo61CgUjkzdvOKDHn08qnZ0kwck38AOGcMlvSGzvJbIab6soAP5rdoQayecGCDsD69AiF9vJBXyq31eoEO2tQ==
 
 fast-safe-stringify@^1.0.8, fast-safe-stringify@^1.2.3:
   version "1.2.3"
@@ -5774,19 +5774,17 @@ pino@^4.0.2:
     quick-format-unescaped "^1.1.2"
     split2 "^2.2.0"
 
-pino@^5.7.0:
-  version "5.10.1"
-  resolved "https://registry.yarnpkg.com/pino/-/pino-5.10.1.tgz#24831a60681622f96f16df723b48eb6802fcd993"
-  integrity sha512-a2pXIoYfEpQaGKR87/iY97jRjAqSVCyULyNsYJLTXCXbout4qGe2tvAz9jHlm1kMVwOw3IYVZ2baKP8GvLMeiw==
+pino@^5.12.6:
+  version "5.12.6"
+  resolved "https://registry.yarnpkg.com/pino/-/pino-5.12.6.tgz#04a668278d7616db71871f1bd3e26f6918e05feb"
+  integrity sha512-LM5ug2b27uymIIkaBw54ncF+9DSf8S4z1uzw+Y5I94dRu3Z+lFuB13j0kg1InAeyxy+CsLGnWHKy9+zgTreFOg==
   dependencies:
-    fast-json-parse "^1.0.3"
-    fast-redact "^1.4.2"
+    fast-redact "^1.4.4"
     fast-safe-stringify "^2.0.6"
     flatstr "^1.0.9"
     pino-std-serializers "^2.3.0"
-    pump "^3.0.0"
-    quick-format-unescaped "^3.0.0"
-    sonic-boom "^0.7.1"
+    quick-format-unescaped "^3.0.2"
+    sonic-boom "^0.7.3"
 
 pkg-conf@^2.0.0, pkg-conf@^2.1.0:
   version "2.1.0"
@@ -6041,10 +6039,10 @@ quick-format-unescaped@^1.1.2:
   dependencies:
     fast-safe-stringify "^1.0.8"
 
-quick-format-unescaped@^3.0.0:
-  version "3.0.1"
-  resolved "https://registry.yarnpkg.com/quick-format-unescaped/-/quick-format-unescaped-3.0.1.tgz#e1e8526f6aa56dc5452926111461e85755f79acf"
-  integrity sha512-Tnk4iJQ8x3V8ml3x9sLIf4tSDaVB9OJY/5gOrnxgK63CXKphhn8oYOPI4tqnXPQcZ3tCv7GFjeoYY5h6UAvuzg==
+quick-format-unescaped@^3.0.2:
+  version "3.0.2"
+  resolved "https://registry.yarnpkg.com/quick-format-unescaped/-/quick-format-unescaped-3.0.2.tgz#0137e94d8fb37ffeb70040535111c378e75396fb"
+  integrity sha512-FXTaCkwvpIlkdKeGDNgcq07SXWS383noQUuZjvdE1QcTt+eLuqof6/BDiEPqB59FWLie/l91+HtlJSw7iCViSA==
 
 quick-lru@^1.0.0:
   version "1.1.0"
@@ -6824,10 +6822,10 @@ socks@~2.2.0:
     ip "^1.1.5"
     smart-buffer "^4.0.1"
 
-sonic-boom@^0.7.1:
-  version "0.7.1"
-  resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-0.7.1.tgz#d6aae30428802dbd43b1167643efe1ef708bb534"
-  integrity sha512-zveqTNcDTI35ae0LgK/SwHkFeMfe6FJKyeACgPzuOe3f+9CyaoXJHTnDgekXt8PKIoMCGF/m57/9RNjjkqmt2A==
+sonic-boom@^0.7.3:
+  version "0.7.4"
+  resolved "https://registry.yarnpkg.com/sonic-boom/-/sonic-boom-0.7.4.tgz#dc1740a900cf8646471f6ac1f4933a5c66c0ca60"
+  integrity sha512-8JRAJg0RxZtFLQMxolwETvWd2JSlH3ZGo/Z4xPxMbpqF14xCgVYPVeFCFOR3zyr3pcfG82QDVj6537Sx5ZWdNw==
   dependencies:
     flatstr "^1.0.9"
 
