@@ -34,7 +34,7 @@
   "author": "cdaringe",
   "homepage": "https://github.com/cdaringe/hep-c-screener#readme",
   "devDependencies": {
-    "ava": "^1.0.0-beta.3",
+    "ava": "^2.0.0",
     "axios": "^0.19.0",
     "bluebird": "^3.5.1",
     "cross-env": "^5.1.4",
