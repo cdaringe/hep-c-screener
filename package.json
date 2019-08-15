@@ -25,7 +25,7 @@
     "lodash": "^4.17.5",
     "perish": "^1.0.1",
     "pino": "^5.7.0",
-    "pino-pretty": "^3.0.0"
+    "pino-pretty": "^3.2.1"
   },
   "repository": {
     "type": "git",
