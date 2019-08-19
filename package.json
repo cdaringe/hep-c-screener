@@ -17,7 +17,7 @@
     "fhir.js": "^0.0.20",
     "fs-extra": "^8.0.0",
     "invariant": "^2.2.2",
-    "koa": "^2.4.1",
+    "koa": "2.7.0",
     "koa-bodyparser": "^4.2.0",
     "koa-cors": "^0.0.16",
     "koa-pino-logger": "^2.1.1",
