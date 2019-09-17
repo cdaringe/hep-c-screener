@@ -3,11 +3,13 @@ module.exports = {
     resourceType: 'ProcedureRequest',
     id: '123',
     code: {
-      coding: [{
-        code: '22778000',
-        display: 'venipuncture',
-        system: 'http://snomed.org/snomed-ct'
-      }],
+      coding: [
+        {
+          code: '22778000',
+          display: 'venipuncture',
+          system: 'http://snomed.org/snomed-ct'
+        }
+      ],
       text: 'venipuncture'
     },
     meta: {

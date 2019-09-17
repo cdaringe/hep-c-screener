@@ -1,9 +1,5 @@
-var PROCEDURE_REQUEST_ORDER_INTENT = (
-  process.env.PROCEDURE_REQUEST_ORDER_INTENT || 'proposal'
-).trim()
-var PROCEDURE_REQUEST_ORDER_STATUS = (
-  process.env.PROCEDURE_REQUEST_ORDER_STATUS || 'draft'
-).trim()
+var PROCEDURE_REQUEST_ORDER_INTENT = (process.env.PROCEDURE_REQUEST_ORDER_INTENT || 'proposal').trim()
+var PROCEDURE_REQUEST_ORDER_STATUS = (process.env.PROCEDURE_REQUEST_ORDER_STATUS || 'draft').trim()
 
 module.exports = function (util) {
   return {
@@ -38,11 +34,7 @@ module.exports = function (util) {
       var client = util.createClient(cdsPayload)
       var isBoomer = util.patient.isBabyBoomer(patient)
       if (!isBoomer) return false
-      var [
-        hasHCV,
-        hasOutstandingProcedureRequest,
-        hasPreviousHCVScreen
-      ] = await Promise.all([
+      var [hasHCV, hasOutstandingProcedureRequest, hasPreviousHCVScreen] = await Promise.all([
         util.patient.hasHCV({ client, patient }),
         util.patient.hasOutstandingProcedureRequest({ client, patient }),
         util.patient.hasPreviousHCVScreen({ client, patient })
@@ -52,9 +44,7 @@ module.exports = function (util) {
     async shouldScreenIfVenipunctureOrder (cdsPayload) {
       var isVenipuncture = cdsPayload.context.orders.some(order => {
         var snomedCodings = util.codings.getSystemCodings(order, 'snomed')
-        return snomedCodings.some(coding =>
-          util.codes.VENIPUNCTURE_SNOMED_CODES.includes(coding.code)
-        )
+        return snomedCodings.some(coding => util.codes.VENIPUNCTURE_SNOMED_CODES.includes(coding.code))
       })
       if (!isVenipuncture) return false
       return this.shouldScreen(cdsPayload)

@@ -52,9 +52,7 @@ function screenOrdered (opts) {
           {
             type: 'delete',
             description: 'Cancel Screen',
-            resource: `${opts.screenProcedure.resourceType}/${
-              opts.screenProcedure.id
-            }`
+            resource: `${opts.screenProcedure.resourceType}/${opts.screenProcedure.id}`
           }
         ]
       }

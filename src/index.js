@@ -9,8 +9,7 @@ var workflows = require('./hcv-workflows/')
 var keyBy = require('lodash/keyBy')
 var screeningCards = require('./services/hcv-screen-cards')
 
-var DISABLE_DEFAULT_SCREENING_ORDER =
-  process.env.DISABLE_DEFAULT_SCREENING_ORDER || false
+var DISABLE_DEFAULT_SCREENING_ORDER = process.env.DISABLE_DEFAULT_SCREENING_ORDER || false
 var HOOKS_FILENAME = path.join(__dirname, './hooks.json')
 var MIDDLEWARE = ['response-time', 'logger', 'body-parser', 'simple-responses']
 
@@ -18,10 +17,7 @@ async function getDefaultServiceOpts () {
   return {
     name: process.env.SERVICE_NAME || 'hep-c-screener',
     logger: {
-      level:
-        process.env.LOG_LEVEL || process.env.NODE_ENV === 'development'
-          ? 'debug'
-          : 'warn'
+      level: process.env.LOG_LEVEL || process.env.NODE_ENV === 'development' ? 'debug' : 'warn'
     },
     server: {
       port: process.env.PORT || 8080
@@ -51,50 +47,39 @@ module.exports = class Service {
       })
     )
     app.use(
-      post(
-        `/cds-services/${hooksByHookName['patient-view'].id}`,
-        async (ctx, id) => {
-          var payload = ctx.request.body
-          var requiresScreen = await workflows.screening.shouldScreen(payload)
-          if (!requiresScreen) return { cards: [] }
-          var screenProcedure
-          var createScreenPayload
-          if (DISABLE_DEFAULT_SCREENING_ORDER) {
-            createScreenPayload = workflows.screening.createScreenPayload(
-              payload.prefetch.patient.resource
-            )
-            return screeningCards.screenProposed({ createScreenPayload })
-          }
-          screenProcedure = await workflows.screening.createScreen(payload)
-          return screeningCards.screenOrdered({ screenProcedure })
+      post(`/cds-services/${hooksByHookName['patient-view'].id}`, async (ctx, id) => {
+        var payload = ctx.request.body
+        var requiresScreen = await workflows.screening.shouldScreen(payload)
+        if (!requiresScreen) return { cards: [] }
+        var screenProcedure
+        var createScreenPayload
+        if (DISABLE_DEFAULT_SCREENING_ORDER) {
+          createScreenPayload = workflows.screening.createScreenPayload(payload.prefetch.patient.resource)
+          return screeningCards.screenProposed({ createScreenPayload })
         }
-      )
+        screenProcedure = await workflows.screening.createScreen(payload)
+        return screeningCards.screenOrdered({ screenProcedure })
+      })
     )
     app.use(
-      post(
-        `/cds-services/${hooksByHookName['order-review'].id}`,
-        async (ctx, id) => {
-          var payload = ctx.request.body
-          var requiresScreen = await workflows.screening.shouldScreenIfVenipunctureOrder(
-            payload
-          )
-          if (!requiresScreen) return { cards: [] }
-          var screenProcedure
-          var createScreenPayload
-          if (DISABLE_DEFAULT_SCREENING_ORDER) {
-            createScreenPayload = workflows.screening.createScreenPayload(
-              payload
-            )
-            return screeningCards.screenProposed({ createScreenPayload })
-          }
-          screenProcedure = await workflows.screening.createScreen(payload)
-          return screeningCards.screenOrdered({ screenProcedure })
+      post(`/cds-services/${hooksByHookName['order-review'].id}`, async (ctx, id) => {
+        var payload = ctx.request.body
+        var requiresScreen = await workflows.screening.shouldScreenIfVenipunctureOrder(payload)
+        if (!requiresScreen) return { cards: [] }
+        var screenProcedure
+        var createScreenPayload
+        if (DISABLE_DEFAULT_SCREENING_ORDER) {
+          createScreenPayload = workflows.screening.createScreenPayload(payload)
+          return screeningCards.screenProposed({ createScreenPayload })
         }
-      )
+        screenProcedure = await workflows.screening.createScreen(payload)
+        return screeningCards.screenOrdered({ screenProcedure })
+      })
     )
     this.server = app.listen(opts.server.port)
     services.logger.info(`🚀  listening @ http://localhost:${opts.server.port}`)
   }
+
   async stop () {
     if (this.server) this.server.close()
   }

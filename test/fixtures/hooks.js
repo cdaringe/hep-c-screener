@@ -8,9 +8,7 @@ var mildredVenipuncture = {
   user: 'Practitioner/example',
   patient: 'smart-5555003',
   context: {
-    orders: [
-      procedureRequests.venipuncture
-    ]
+    orders: [procedureRequests.venipuncture]
   },
   prefetch: {
     patient: {
@@ -53,10 +51,7 @@ var mildredVenipuncture = {
           {
             use: 'official',
             family: 'Hoffman',
-            given: [
-              'Mildred',
-              'E'
-            ]
+            given: ['Mildred', 'E']
           }
         ],
         telecom: [
@@ -70,9 +65,7 @@ var mildredVenipuncture = {
         address: [
           {
             use: 'home',
-            line: [
-              '2001 Airport Road'
-            ],
+            line: ['2001 Airport Road'],
             city: 'Morrisville',
             state: 'NC',
             postalCode: '27560',

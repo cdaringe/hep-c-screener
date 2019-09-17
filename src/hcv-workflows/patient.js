@@ -16,13 +16,13 @@ module.exports = function (util) {
         query: { patient: `${patient.id}` }
       })
       do {
-        var { data: { entry: entries = [] } } = res
+        var {
+          data: { entry: entries = [] }
+        } = res
         var conditions = entries.map(entry => entry.resource)
         var isHCVDetected = conditions.some(condition => {
           var snomedCodings = util.codings.getSystemCodings(condition, 'snomed')
-          return snomedCodings.some(coding =>
-            util.codes.HCV_SNOMED_CODES.includes(coding.code)
-          )
+          return snomedCodings.some(coding => util.codes.HCV_SNOMED_CODES.includes(coding.code))
         })
         if (isHCVDetected) {
           return isHCVDetected
@@ -42,13 +42,13 @@ module.exports = function (util) {
         }
       })
       do {
-        var { data: { entry: entries = [] } } = res
+        var {
+          data: { entry: entries = [] }
+        } = res
         var observations = entries.map(entry => entry.resource)
         var hasHadScreening = observations.some(condition => {
           var loincCodings = util.codings.getSystemCodings(condition, 'loinc')
-          return loincCodings.some(coding =>
-            util.codes.HCV_SCREEN_OBSERVATION_LOINC_CODES.includes(coding.code)
-          )
+          return loincCodings.some(coding => util.codes.HCV_SCREEN_OBSERVATION_LOINC_CODES.includes(coding.code))
         })
         if (hasHadScreening) {
           return hasHadScreening
@@ -67,26 +67,22 @@ module.exports = function (util) {
         }
       })
       do {
-        var { data: { entry: entries = [] } } = res
+        var {
+          data: { entry: entries = [] }
+        } = res
         var procedures = entries.map(entry => entry.resource)
-        var hasOutstandingProcedureRequest = procedures.some(
-          procedureRequest => {
-            var loincCodings = util.codings.getSystemCodings(
-              procedureRequest,
-              'loinc'
-            )
-            var hasExistingProcedureRequest = loincCodings.some(
-              coding =>
-                util.codes.HCV_SCREEN_PROCEDURE_LOINC_CODE === coding.code
-            )
-            if (hasExistingProcedureRequest) {
-              if (procedureRequest.status.match(/draft|active|completed/)) {
-                return true
-              }
-              return false
+        var hasOutstandingProcedureRequest = procedures.some(procedureRequest => {
+          var loincCodings = util.codings.getSystemCodings(procedureRequest, 'loinc')
+          var hasExistingProcedureRequest = loincCodings.some(
+            coding => util.codes.HCV_SCREEN_PROCEDURE_LOINC_CODE === coding.code
+          )
+          if (hasExistingProcedureRequest) {
+            if (procedureRequest.status.match(/draft|active|completed/)) {
+              return true
             }
+            return false
           }
-        )
+        })
         if (hasOutstandingProcedureRequest) {
           return hasOutstandingProcedureRequest
         } else {

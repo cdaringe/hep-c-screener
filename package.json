@@ -6,7 +6,7 @@
   "bin": "src/bin.js",
   "license": "MIT",
   "scripts": {
-    "lint": "standard",
+    "lint": "standard --fix",
     "start:watch": "nodemon node src/bin.js",
     "start": "node src/bin.js",
     "test": "cross-env NODE_ENV=test ava --verbose",
