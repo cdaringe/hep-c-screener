@@ -10,8 +10,7 @@
     "start:watch": "nodemon node src/bin.js",
     "start": "node src/bin.js",
     "test": "cross-env NODE_ENV=test ava --verbose",
-    "format": "prettier-standard 'src/**/*.js'",
-    "format:staged": "prettier-standard 'src/**/*.js'"
+    "format": "prettier-standard '{src,test,scripts}/**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {
     "fhir.js": "^0.0.20",
@@ -39,30 +38,28 @@
     "bluebird": "^3.5.1",
     "cross-env": "^5.1.4",
     "freeport": "^1.0.5",
-    "husky": "^3.0.0",
-    "lint-staged": "^9.0.0",
+    "husky": "^3.0.5",
+    "lint-staged": "^9.2.5",
     "nodemon": "^1.15.0",
     "npm-run": "^5.0.1",
     "npm-run-all": "^4.1.2",
-    "prettier-standard": "^10.0.0",
+    "prettier-standard": "^14.0.5",
     "semantic-release": "^15.1.7",
-    "standard": "^12.0.1"
+    "standard": "^14.3.0"
   },
   "ava": {
     "babel": false,
     "compileEnhancements": false
   },
   "lint-staged": {
-    "linters": {
-      "src/**/*.js": [
-        "prettier-standard",
-        "git add"
-      ]
-    }
+    "src/**/*.js": [
+      "prettier-standard",
+      "git add"
+    ]
   },
   "husky": {
     "hooks": {
-      "pre-commit": "run-p test format:staged"
+      "pre-commit": "run-p test format"
     }
   }
 }

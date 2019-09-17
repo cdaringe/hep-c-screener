@@ -1,8 +1,6 @@
 # hep-c-screener
 
-[![Greenkeeper badge](https://badges.greenkeeper.io/cdaringe/hep-c-screener.svg)](https://greenkeeper.io/)
-
-[![CircleCI](https://circleci.com/gh/cdaringe/hep-c-screener.svg?style=svg)](https://circleci.com/gh/cdaringe/hep-c-screener) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
+[![Greenkeeper badge](https://badges.greenkeeper.io/cdaringe/hep-c-screener.svg)](https://greenkeeper.io/) [![CircleCI](https://circleci.com/gh/cdaringe/hep-c-screener.svg?style=svg)](https://circleci.com/gh/cdaringe/hep-c-screener) [![JavaScript Style Guide](https://img.shields.io/badge/code_style-standard-brightgreen.svg)](https://standardjs.com)
 
 a [CDS Hooks](http://cds-hooks.org/) hepatitis c screening service.
 
