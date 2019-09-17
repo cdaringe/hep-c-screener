@@ -33,10 +33,10 @@
   "author": "cdaringe",
   "homepage": "https://github.com/cdaringe/hep-c-screener#readme",
   "devDependencies": {
-    "ava": "^1.0.0-beta.3",
+    "ava": "^2.4.0",
     "axios": "^0.19.0",
-    "bluebird": "^3.5.1",
-    "cross-env": "^5.1.4",
+    "bluebird": "^3.5.5",
+    "cross-env": "^6.0.0",
     "freeport": "^1.0.5",
     "husky": "^3.0.5",
     "lint-staged": "^9.2.5",
@@ -44,15 +44,19 @@
     "npm-run": "^5.0.1",
     "npm-run-all": "^4.1.2",
     "prettier-standard": "^14.0.5",
-    "semantic-release": "^15.1.7",
+    "semantic-release": "^15.13.24",
     "standard": "^14.3.0"
   },
   "ava": {
     "babel": false,
-    "compileEnhancements": false
+    "compileEnhancements": false,
+    "files": [
+      "test/**/*.test.js"
+    ]
   },
   "lint-staged": {
     "src/**/*.js": [
+      "yarn lint",
       "prettier-standard",
       "git add"
     ]
