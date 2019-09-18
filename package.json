@@ -13,7 +13,7 @@
     "format": "prettier-standard '{src,test,scripts}/**/*.{js,jsx,ts,tsx}'"
   },
   "dependencies": {
-    "fhir.js": "^0.0.20",
+    "fhir.js": "^0.0.22",
     "fs-extra": "^8.0.0",
     "invariant": "^2.2.2",
     "koa": "^2.4.1",
