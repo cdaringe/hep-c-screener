@@ -14,7 +14,7 @@
   },
   "dependencies": {
     "fhir.js": "^0.0.22",
-    "fs-extra": "^8.0.0",
+    "fs-extra": "^9.0.0",
     "invariant": "^2.2.2",
     "koa": "^2.4.1",
     "koa-bodyparser": "^4.2.0",
